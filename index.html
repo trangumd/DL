@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MNIST Experiment Management</title>
+    <style>
+        /* Your CSS styles here */
+    </style>
+</head>
+<body>
+    <h1>MNIST Experiment Management</h1>
+    <h2>Run Experiments</h2>
+    <form action="/run_experiments" method="post">
+        <label for="learning_rate">Learning Rate:</label>
+        <select id="learning_rate" name="learning_rate">
+            <option value="0.0001">0.0001</option>
+            <option value="0.001">0.001</option>
+            <option value="0.01">0.01</option>
+        </select><br><br>
+        <label for="batch_size">Batch Size:</label>
+        <select id="batch_size" name="batch_size">
+            <option value="32">32</option>
+            <option value="64">64</option>
+            <option value="128">128</option>
+        </select><br><br>
+        <label for="epochs">Epochs:</label>
+        <select id="epochs" name="epochs">
+            <option value="1">1</option>
+            <option value="3">3</option>
+            <option value="5">5</option>
+        </select><br><br>
+        <input type="submit" value="Run Experiments">
+    </form>
+    
+    <h2>Experiments results</h2>
+    <ul>
+        {% for experiment in ongoing %}
+            <li>{{ experiment.learning_rate }}, {{ experiment.batch_size }}, {{ experiment.epochs }}</li>
+            <ul>
+                {% for progress in experiment.progress %}
+                    <li>Epoch: {{ progress.epoch }}, Batch: {{ progress.batch }}, Loss: {{ progress.loss }}, Accuracy: {{ progress.accuracy }}</li>
+                {% endfor %}
+            </ul>
+        {% endfor %}
+    </ul>
+    
+</body>
+</html>
+
